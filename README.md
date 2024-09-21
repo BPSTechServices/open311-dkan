@@ -9,4 +9,6 @@ ddev dkan-site-install
 ### Build DKAN FRONTEND
 
 ```
+ddev dkan-frontend-install
+ddev dkan-frontend-build
 ```
