@@ -37,10 +37,6 @@ Thumbs.db
 .vscode/
 *.iml
 
-# Ignore compiled assets if any (e.g., if you compile CSS or JS)
-public/css/
-public/js/
-
 # Ignore backup and archive files
 *.sql
 *.tar.gz
