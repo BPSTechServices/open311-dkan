@@ -3,9 +3,6 @@
 - [Installing DDEV](https://ddev.readthedocs.io/en/latest/users/install/ddev-installation/)
 - [Installing Docker](https://ddev.readthedocs.io/en/latest/users/install/docker-installation/)
 ```
-DDEV: Required
-Composer: Required
-Docker: Required
 MySQL: 8.4.2
 PHP: 8.3.11
 Apache: 2.4.59
