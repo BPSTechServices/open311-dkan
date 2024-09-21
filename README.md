@@ -1,6 +1,6 @@
 ### Environment (Not minimum requirement; only my local setup)
-- [Installing Composer](https://getcomposer.org/doc/00-intro.md#installation-linux-unix-osx)\
-- [Installing DDEV](https://ddev.readthedocs.io/en/latest/users/install/ddev-installation/)\
+- [Installing Composer](https://getcomposer.org/doc/00-intro.md#installation-linux-unix-osx)
+- [Installing DDEV](https://ddev.readthedocs.io/en/latest/users/install/ddev-installation/)
 - [Installing Docker](https://ddev.readthedocs.io/en/latest/users/install/docker-installation/)
 ```
 DDEV: Required
