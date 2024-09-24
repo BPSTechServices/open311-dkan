@@ -13,7 +13,7 @@ Node: 22.8.0
 
 ```
 ddev start
-composer install
+ddev composer install
 ddev dkan-site-install
 ```
 
@@ -21,7 +21,7 @@ ddev dkan-site-install
 ```
 ddev dkan-frontend-install
 ```
-Enter **N** for the following question:
+Enter **N** for the following prompt:
 
 **replace docroot/data-catalog-app-1.6.2/.circleci/config.yml? [y]es, [n]o, [A]ll, [N]one, [r]ename:**
 ```
@@ -31,4 +31,11 @@ ddev dkan-frontend-build
 ### Enable Cron Jobs
 ```
 ddev drush cron
+```
+
+### Login as the admin user and launch the application
+
+```
+ddev drush uli
+ddev launch
 ```
