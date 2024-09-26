@@ -1,8 +1,8 @@
 # Navigation
-- [Rebuild the entire project for the first time](#rebuild-the-entire-project-for-the-first-time)
-- [Front-end Development](#for-front-end-development)
+- [Installation](#installation)
+- [Front-end Development](#front-end-development)
 
-## Rebuild the entire project for the first time
+## Installation
 
 ### Environment (Not minimum requirement; only my local setup)
 - [Installing Composer](https://getcomposer.org/doc/00-intro.md#installation-linux-unix-osx)
@@ -46,7 +46,7 @@ ddev drush uli
 ddev launch
 ```
 
-## For front-end development
+## Front-end Development
 ```
 git pull
 ddev dkan-frontend-build
