@@ -36,7 +36,7 @@ const Home = () => {
 
   const fDatasets = orderedDatasets.length > 3 ? orderedDatasets.slice(orderedDatasets.length -3, orderedDatasets.length) : orderedDatasets;
 
-  const items = (themes && themes.length) ? 
+  const items = (themes && themes.length) ?
     themes.map(x => {
       let item = {
         identifier: x.identifier,
@@ -50,7 +50,7 @@ const Home = () => {
   return (
     <Layout title="Home">
         <div className="home-page">
-        <Hero title={copy.hero[0].title} intro={copy.hero[0].intro} gradient={'rgb(22, 46, 81), rgb(9, 120, 188)'} />
+        <Hero title={copy.hero[0].title} intro={copy.hero[0].intro} gradient={'rgb(21, 25, 30), rgb(51, 55, 60)'} />
         <div className="container">
             <IconList
                 items={items}
@@ -59,13 +59,13 @@ const Home = () => {
                 className="opendata-icon-list"
             />
         </div>
-        <Blocks
-            items={copy.stats}
-            component={StatBlock}
-            containerClass=""
-            blockClass="StatBlock"
-        />
-        <FeaturedDatasets datasets={fDatasets} />
+        {/*<Blocks*/}
+        {/*    items={copy.stats}*/}
+        {/*    component={StatBlock}*/}
+        {/*    containerClass=""*/}
+        {/*    blockClass="StatBlock"*/}
+        {/*/>*/}
+        {/*<FeaturedDatasets datasets={fDatasets} />*/}
         </div>
     </Layout>
   );

@@ -755,8 +755,8 @@ a.dc-topic-wrapper:focus svg, a.dc-topic-wrapper:hover svg {
 }
 
 .dc-footer {
-  background-color: #162e51;
-  color: #FFFFFF;
+  background-color: #e1e5ea;
+  color: #15191e;
 }
 .dc-footer ul {
   margin: 20px 40px 0 0;
@@ -772,14 +772,14 @@ a.dc-topic-wrapper:focus svg, a.dc-topic-wrapper:hover svg {
   padding-bottom: 40px;
 }
 .dc-footer .page-footer h2, .dc-footer .page-footer h3, .dc-footer .page-footer h4 {
-  color: #FFFFFF;
+  color: #1d62c9;
 }
 .dc-footer .page-footer a {
-  color: #FFFFFF;
+  color: #1d62c9;
   text-decoration: none;
 }
 .dc-footer .page-footer a:hover, .dc-footer .page-footer a:focus {
-  color: #FFFFFF;
+  color: #1d62c9;
   text-decoration: underline;
 }
 .dc-footer .branding {
@@ -802,7 +802,7 @@ a.dc-topic-wrapper:focus svg, a.dc-topic-wrapper:hover svg {
 }
 .dc-footer .branding .social svg {
   font-size: 25px;
-  fill: #FFFFFF;
+  fill: #15191e;
   opacity: 0.5;
 }
 .dc-footer .branding .social svg:hover {
@@ -826,7 +826,7 @@ ul.mr-auto.nav {
 }
 
 .dc-main-navigation {
-  background-color: #0978bc;
+  background-color: #15191e;
   position: relative;
   display: block;
   clear: both;

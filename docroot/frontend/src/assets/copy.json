@@ -1,8 +1,8 @@
 {
   "hero": [
     {
-      "title": "Welcome to DKAN",
-      "intro": "DKAN is an open-source data management platform. It treats data as content so that you can easily publish, manage, and maintain your open data no matter the size of your team or the level of technical expertise.",
+      "title": "Welcome to Portland 311",
+      "intro": "Open311 is an international effort to build open and interoperable systems that allow citizens to interact with their government more directly. It makes 311 data services available to the public while also facilitating improved policy and service delivery by increasing decision-makers’ understanding of residents’ needs.",
       "ref": "0"
     }
   ],

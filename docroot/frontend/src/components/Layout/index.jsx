@@ -4,6 +4,7 @@ import { Link } from 'react-router-dom';
 import { Header, NavBar, Footer } from "@civicactions/data-catalog-components";
 import config from "../../assets/config.json";
 import links from "../../assets/menu.json";
+import sealLogo from "../../seal.png";
 
 const Layout = ({
   children,
@@ -21,7 +22,7 @@ const Layout = ({
           "lang": "en"
         }}
       />
-      <Header site={config.site} slogan={config.slogan} customClasses={config.container} />
+      <Header logo={sealLogo} site={config.site} slogan={config.slogan} customClasses={config.container} />
       <NavBar
         navItems={links.main.map(item => (
           <Link to={item.url}>

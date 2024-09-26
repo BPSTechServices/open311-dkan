@@ -7,7 +7,7 @@ import '@civicactions/data-catalog-components/dist/index.css';
 import './theme/index.css';
 
 import Home from './templates/home';
-import About from './templates/about';
+import Open311 from './templates/open311';
 import SearchTemplate from './templates/search';
 import ApiDocsFull from './templates/api';
 import NotFound from './templates/not_found';
@@ -25,8 +25,8 @@ const router = createBrowserRouter([
     element: <Navigate replace to="/" />
   },
   {
-    path: "/about",
-    element: <About />
+    path: "/open311",
+    element: <Open311 />
   },
   {
     path: "/publishers",
