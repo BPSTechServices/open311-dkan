@@ -1,3 +1,7 @@
+# Navigation
+- [Rebuild the entire project for the first time](https://github.com/COP-CMU/get-dkan/edit/main/README.md#rebuild-the-entire-project-for-the-first-time)
+- [Front-end Development](https://github.com/COP-CMU/get-dkan/edit/main/README.md#for-front-end-development)
+
 ## Rebuild the entire project for the first time
 
 ### Environment (Not minimum requirement; only my local setup)
