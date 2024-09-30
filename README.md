@@ -2,6 +2,7 @@
 - [Installation](#installation)
 - [Front-end Development](#front-end-development)
 - [Datasets Upload](#datasets-upload)
+- [Datasets Update](#datasets-update)
 
 ## Installation
 
@@ -60,4 +61,12 @@ ddev drush queue:list
 ddev drush queue:run localize_import
 ddev drush queue:run datastore_import
 ddev drush queue:run post_import
+```
+
+## Datasets Updates
+
+```
+ddev drush queue:list
+ddev drush queue:run resource_purger
+ddev drush queue:run orphan_reference_processor
 ```
