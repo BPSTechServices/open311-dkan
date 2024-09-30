@@ -1,6 +1,7 @@
 # Navigation
 - [Installation](#installation)
 - [Front-end Development](#front-end-development)
+- [Datasets Upload](#datasets-upload)
 
 ## Installation
 
@@ -50,4 +51,13 @@ ddev launch
 ```
 git pull
 ddev dkan-frontend-build
+```
+
+## Datasets Upload
+
+```
+ddev drush queue:list
+ddev drush queue:run localize_import
+ddev drush queue:run datastore_import
+ddev drush queue:run post_import
 ```
