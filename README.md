@@ -63,7 +63,7 @@ ddev drush queue:run datastore_import
 ddev drush queue:run post_import
 ```
 
-## Datasets Updates
+## Datasets Update
 
 ```
 ddev drush queue:list
