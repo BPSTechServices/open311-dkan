@@ -1,5 +1,17 @@
-# Ignore Drupal core (managed via Composer)
-docroot/core/
+# Ignore everything in docroot/core/
+docroot/core/*
+docroot/core/**
+
+# Except the modules directory inside core
+!docroot/core/modules/
+
+# Ignore everything in docroot/core/modules/
+docroot/core/modules/*
+docroot/core/modules/**
+
+# Except the automated_cron module
+!docroot/core/modules/automated_cron/
+!docroot/core/modules/automated_cron/**
 
 # Ignore contributed modules and themes (managed via Composer)
 docroot/modules/contrib/
