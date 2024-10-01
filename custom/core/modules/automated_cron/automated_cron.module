@@ -35,7 +35,7 @@ function automated_cron_help($route_name, RouteMatchInterface $route_match) {
 function automated_cron_form_system_cron_settings_alter(&$form, &$form_state, $form_id) {
   $automated_cron_settings = \Drupal::config('automated_cron.settings');
 
-  $options = [300, 3600, 10800, 21600, 43200, 86400, 604800];
+  $options = [300, 10800, 21600, 43200, 86400, 604800];
   $form['cron']['interval'] = [
     '#type' => 'select',
     '#title' => t('Run cron every'),
