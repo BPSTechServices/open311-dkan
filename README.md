@@ -7,9 +7,9 @@
 ## Installation
 
 ### Environment (Not minimum requirement; only my local setup)
-- [Installing Composer](https://getcomposer.org/doc/00-intro.md#installation-linux-unix-osx)
-- [Installing DDEV](https://ddev.readthedocs.io/en/latest/users/install/ddev-installation/)
-- [Installing Docker](https://ddev.readthedocs.io/en/latest/users/install/docker-installation/)
+- [Installing Composer](https://getcomposer.org/doc/00-intro.md#installation-linux-unix-osx){:target="_blank"}
+- [Installing DDEV](https://ddev.readthedocs.io/en/latest/users/install/ddev-installation/){:target="_blank"}
+- [Installing Docker](https://ddev.readthedocs.io/en/latest/users/install/docker-installation/){:target="_blank"}
 ```
 MySQL: 8.4.2
 PHP: 8.3.11
