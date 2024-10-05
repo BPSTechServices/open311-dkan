@@ -22,3 +22,11 @@ web_environment:
   - COMPOSER_MEMORY_LIMIT=-1
   - PHP_MEM_LIMIT=256M
   - PHP_CLI_MEM_LIMIT=512M
+
+hooks:
+  post-start:
+    # Create a Python virtual environment
+    - exec: |
+        sudo python3 -m venv /venv
+    - exec: |
+        sudo /venv/bin/pip install flask flask_restx
