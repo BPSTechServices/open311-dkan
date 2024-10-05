@@ -48,6 +48,13 @@ ddev drush uli
 ddev launch
 ```
 
+### Set up the flask proxy
+
+```
+docker exec -it ddev-get-dkan-web /bin/bash 
+setsid /venv/bin/python filter.py &
+```
+
 ## Front-end Development
 ```
 git pull
