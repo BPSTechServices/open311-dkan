@@ -18,7 +18,7 @@ import orgs from "../../assets/publishers";
 const Dataset = () => {
   const { id } = useParams();
   const [hasWindow, checkForWindow] = useState(false);
-  
+
   useEffect(() => {
     if (window !== undefined) {
       checkForWindow(true);
@@ -119,20 +119,20 @@ const Dataset = () => {
   return (
     <Layout title={`Dataset - ${item.title}`}>
       <div className={`dc-dataset-page ${config.container}`}>
-        <div className="row">
-          <div className="col-md-3 col-sm-12">
-            {renderOrg}
-            <div className="dc-block-wrapper">
-              The information on this page is also available via the{" "}
-              <Link
-                to={`/dataset/${item.identifier}/api`}
-                state={{ dataset: {...item} }}
-              >
-                API
-              </Link>.
-            </div>
-          </div>
-          <div className="col-md-9 col-sm-12">
+        <div /*className="row"*/ style="width: 80%">
+          {/*<div className="col-md-3 col-sm-12">*/}
+          {/*  {renderOrg}*/}
+          {/*  <div className="dc-block-wrapper">*/}
+          {/*    The information on this page is also available via the{" "}*/}
+          {/*    <Link*/}
+          {/*      to={`/dataset/${item.identifier}/api`}*/}
+          {/*      state={{ dataset: {...item} }}*/}
+          {/*    >*/}
+          {/*      API*/}
+          {/*    </Link>.*/}
+          {/*  </div>*/}
+          {/*</div>*/}
+          <div /*className="col-md-12 col-sm-12"*/>
           {Object.keys(item).length
             ?(
             <div>

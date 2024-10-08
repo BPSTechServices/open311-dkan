@@ -5,7 +5,7 @@ from flask_cors import CORS
 
 app = Flask(__name__)
 
-CORS(app, resources={r"/*": {"origins": "https://get-dkan.ddev.site"}})
+CORS(app, origins=["https://get-dkan.ddev.site"])
 
 # Swagger UI Config
 swagger_ui_config = {
