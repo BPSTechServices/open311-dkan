@@ -119,7 +119,7 @@ const Dataset = () => {
   return (
     <Layout title={`Dataset - ${item.title}`}>
       <div className={`dc-dataset-page ${config.container}`}>
-        <div /*className="row"*/ style="width: 80%">
+        <div className="row">
           {/*<div className="col-md-3 col-sm-12">*/}
           {/*  {renderOrg}*/}
           {/*  <div className="dc-block-wrapper">*/}
@@ -132,7 +132,7 @@ const Dataset = () => {
           {/*    </Link>.*/}
           {/*  </div>*/}
           {/*</div>*/}
-          <div /*className="col-md-12 col-sm-12"*/>
+          <div className="col-md-12 col-sm-12">
           {Object.keys(item).length
             ?(
             <div>
