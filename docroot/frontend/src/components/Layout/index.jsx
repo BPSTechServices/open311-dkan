@@ -14,7 +14,8 @@ const Layout = ({
   return (
     <div className="App">
       <Helmet
-        title={`${title} - DKAN Demo`}
+        // title={`${title} - DKAN Demo`}
+        title={`City of Portland`}
         description={description}
         generator="DKAN 2 (https://github.com/GetDKAN/dkan)"
         defer={false}
@@ -24,11 +25,13 @@ const Layout = ({
       />
       <Header logo={sealLogo} site={config.site} slogan={config.slogan} customClasses={config.container} />
       <NavBar
-        navItems={links.main.map(item => (
+        navItems={[links.main.map(item => (
           <Link to={item.url}>
             {item.label}
           </Link>
-        ))}
+        )),
+          <a href="/user/login">Login</a>
+        ]}
         customClasses={config.container}
       />
       <main>
