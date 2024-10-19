@@ -28,7 +28,7 @@ swagger_ui_config = {
   'swagger_ui_standalone_preset_js': 'https://cdnjs.cloudflare.com/ajax/libs/swagger-ui/3.43.0/swagger-ui-standalone-preset.min.js',
 }
 
-api = Api(app, version='1.0', title='Cases API',
+api = Api(app, version='1.0', title='Open311 API',
           description='City of Portland, Oregon',
           **swagger_ui_config)
 
