@@ -51,8 +51,8 @@ ddev launch
 ### Set up the flask proxy
 
 ```
-docker exec -it ddev-get-dkan-web /bin/bash 
-setsid /venv/bin/python filter.py &
+docker exec -it ddev-get-dkan-web /bin/bash
+setsid /venv/bin/python proxy.py &
 ```
 
 ## Front-end Development
