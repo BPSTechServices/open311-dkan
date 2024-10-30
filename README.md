@@ -58,7 +58,7 @@ setsid /venv/bin/python proxy.py &
 ### Generate certificates locally
 
 ```
-mkcert 127.0.0.1 localhost get-dkan.ddev.site
+mkcert 127.0.0.1 localhost
 ```
 
 ## Front-end Development
