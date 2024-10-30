@@ -454,4 +454,4 @@ class ServiceDefinition(Resource):
       return {'message': f'An unexpected error occurred: {str(e)}'}, 500
 
 if __name__ == '__main__':
-  app.run(host='0.0.0.0', port=5000, ssl_context=('127.0.0.1+2.pem', '127.0.0.1+2-key.pem'))
+  app.run(host='0.0.0.0', port=5000, ssl_context=('127.0.0.1+1.pem', '127.0.0.1+1-key.pem'))
