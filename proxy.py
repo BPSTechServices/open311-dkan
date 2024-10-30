@@ -5,7 +5,7 @@ from flask_cors import CORS
 
 app = Flask(__name__)
 
-CORS(app, origins=["https://get-dkan.ddev.site"])
+CORS(app, origins=["https://get-dkan.ddev.site"], supports_credentials=True)
 
 # Swagger UI Config
 swagger_ui_config = {
@@ -454,4 +454,4 @@ class ServiceDefinition(Resource):
       return {'message': f'An unexpected error occurred: {str(e)}'}, 500
 
 if __name__ == '__main__':
-  app.run(host='0.0.0.0', port=5000)
+  app.run(host='0.0.0.0', port=5000, ssl_context=('127.0.0.1+2.pem', '127.0.0.1+2-key.pem'))
