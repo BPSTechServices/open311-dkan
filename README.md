@@ -44,7 +44,23 @@ ddev drush cron
 ### Login as the admin user and launch the application
 
 ```
+sudo usermod -aG docker $USER
+newgrp docker
+sudo chown -R $USER:$USER /home/get-dkan
+```
+`vi .ddev/config.yaml`
+and add:
+```
+router_http_port: "8080"
+router_https_port: "8443"
+bind_all_interfaces: true
+```
+
+```
+// get a local url
 ddev drush uli
+// get a external url
+ddev drush uli | sed "s|https://get-dkan.ddev.site|http://$(curl -s ifconfig.me):8080|g"
 ddev launch
 ```
 
