@@ -2,6 +2,7 @@ from flask import Flask, request
 from flask_restx import Api, Resource, fields
 from datetime import datetime
 from flask_cors import CORS
+import requests
 
 app = Flask(__name__)
 
@@ -84,133 +85,35 @@ error_model = api.model('Error', {
   'message': fields.String(required=True, description='Error message')
 })
 
-
-#dummy data
 service_list = [
-  {
-    "jurisdiction_id" : "city_of_portland",
-    "service_code":"report_trash_can",
-    "service_name":"Report a Problem with a Public Trash Can",
-    "description":"Let the City know if you see a broken, damaged or overflowing public trash can.",
-    "metadata":"FALSE",
-    "type":	"realtime",
-    "keywords":"trash, garbage",
-    "group":"Garbage, Recycling, and Compost",
-  },
-  {
-    "jurisdiction_id" :"city_of_portland",
-    "service_code":"apply_tsup",
-    "service_name":"Apply, Renew, or Change a Temporary Street Use Permit",
-    "description":"Temporary street use permits allow you to reserve on-street parking spaces, close portions of the sidewalk, or perform traffic control in the street area.",
-    "metadata":	"TRUE",
-    "type":	"realtime",
-    "keywords":	"street, parking, permit, temporary",
-    "group":"Transportation Permitting",
-  },
-  {
-    "jurisdiction_id" :"city_of_portland",
-    "service_code":"apply_tsup2",
-    "service_name":"Apply, Renew, or Change a Temporary Street Use Permit",
-    "description":"Temporary street use permits allow you to reserve on-street parking spaces, close portions of the sidewalk, or perform traffic control in the street area.",
-    "metadata":	"TRUE",
-    "type":	"realtime",
-    "keywords":	"street, parking, permit, temporary",
-    "group":"Transportation Permitting",
-  }
 ]
-
-
 service_requests = [
-  {
-    'service_request_id': '94867',
-    'status': 'closed',
-    'service_name': 'Apply, Renew, or Change a Temporary Street Use Permit',
-    'service_code': 'apply_tsup',
-    'description': 'New TSUP application',
-    'requested_datetime': datetime(2023, 5, 17, 12, 40),
-    'updated_datetime': datetime(2023, 6, 29, 9, 1),
-    'agency_responsible': 'PBOT: TSUP',
-    'address': None,
-    'address_id': '1009',
-    'zipcode': None,
-    'lat': None,
-    'long': None,
-    'media_url': None,
-    'agency_id': '12281750992407',
-    'other_fields': {
-      'permit_start': '2024-11-07T02:11:47-700',
-      'permit_end': '2024-11-09T00:00:00-700'
-    }
-  },
-  {
-    'service_request_id': '94878',
-    'status': 'closed',
-    'service_name': 'Apply, Renew, or Change a Temporary Street Use Permit',
-    'service_code': 'apply_tsup',
-    'description': 'General permit question',
-    'requested_datetime': datetime(2023, 5, 17, 12, 44),
-    'updated_datetime': datetime(2023, 5, 17, 12, 46),
-    'agency_responsible': 'PBOT: TSUP',
-    'address': None,
-    'address_id': '2053',
-    'zipcode': None,
-    'lat': None,
-    'long': None,
-    'media_url': None,
-    'agency_id': '12281750992407',
-    'other_fields': {
-      'permit_start': '2024-10-07T02:11:47-700',
-      'permit_end': '2024-10-09T00:00:00-700'
-    }
-  },
-  {
-    'service_request_id': '94894',
-    'status': 'closed',
-    'service_name': 'Apply, Renew, or Change a Temporary Street Use Permit',
-    'service_code': 'apply_tsup',
-    'description': 'General permit question',
-    'requested_datetime': datetime(2023, 5, 17, 12, 59),
-    'updated_datetime': datetime(2023, 8, 15, 14, 2),
-    'agency_responsible': 'PBOT: TSUP',
-    'address': None,
-    'address_id': '1009',
-    'zipcode': None,
-    'lat': None,
-    'long': None,
-    'media_url': None,
-    'agency_id': '12281750992407',
-    'other_fields': {
-      'permit_start': '2024-10-07T02:11:47-700',
-      'permit_end': '2024-10-09T00:00:00-700'
-    }
-  }
 ]
-
-
 service_definitions = [
-  {
-    'service_code': 'apply_tsup',
-    'variable': "True",
-    'code': 'permit_start',
-    'datatype': 'datetime',
-    'required': "True",
-    'datatype_description': "None",
-    'order': 1,
-    'description': 'Permit Start Date'
-  },
-  {
-    'service_code': 'apply_tsup',
-    'variable': "True",
-    'code': 'permit_end',
-    'datatype': 'datetime',
-    'required': "True",
-    'datatype_description': "None",
-    'order': 2,
-    'description': 'Permit End Date'
-  }
 ]
 
+def retrieveData(bucket, tag):
+  url_identifier = "https://get-dkan.ddev.site/api/1/search"
+  ca = "/mnt/ddev-global-cache/mkcert/rootCA.pem"
+  params = {
+    'keyword': tag
+  }
+  response = requests.get(url_identifier, params=params, verify=ca)
+  data_identifiers = response.json()
 
+  # Iterate over each dataset in the "results"
+  for dataset_key, dataset_value in data_identifiers.get("results").items():
+    ref_distributions = dataset_value.get("%Ref:distribution")
+    resource_id = ref_distributions[0]['identifier']
+    url_dataset = f"https://get-dkan.ddev.site/api/1/datastore/query/{resource_id}"
+    response = requests.get(url_dataset, verify=ca)
+    response = response.json()['results']
+    if (tag == 'Request'):
+      date_format = '%m/%d/%Y %H:%M'
+      for item in response:
+        item['requested_datetime'] = datetime.strptime(item['requested_datetime'], date_format)
+        item['updated_datetime'] = datetime.strptime(item['updated_datetime'], date_format)
+    bucket.append(response)
 
 @ns.route('/service_list')
 class ServiceList(Resource):
@@ -236,6 +139,7 @@ class ServiceList(Resource):
     All text filters are case-insensitive. Keywords filter supports comma-separated values for multiple keyword search.
     """
     try:
+      retrieveData(service_list, 'Service')
       filtered_services = service_list
 
       # Filter by jurisdiction_id
@@ -309,6 +213,7 @@ class ServiceRequest(Resource):
     This endpoint allows you to retrieve a list of service requests. You can apply various filters to narrow down the results.
     """
     try:
+      retrieveData(service_requests, 'Request')
       filtered_requests = service_requests
 
       # Basic string filters
@@ -403,6 +308,7 @@ class ServiceDefinition(Resource):
     All text filters are case-insensitive. Boolean filters accept TRUE/FALSE values.
     """
     try:
+      retrieveData(service_definitions, 'Definition')
       filtered_definitions = service_definitions
 
       # Filter by service_code
