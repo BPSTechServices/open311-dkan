@@ -61,8 +61,8 @@ service_request_model = api.model('Service Request', {
   'address': fields.String(required=False, allow_none=True, description='Address of the service request'),
   'address_id': fields.String(required=False, description='Address ID'),
   'zipcode': fields.String(required=False, allow_none=True, description='Zip code of the location'),
-  'lat': fields.Float(required=False, allow_none=True, description='Latitude of the location'),
-  'long': fields.Float(required=False, allow_none=True, description='Longitude of the location'),
+  'lat': fields.String(required=False, allow_none=True, description='Latitude of the location'),
+  'long': fields.String(required=False, allow_none=True, description='Longitude of the location'),
   'media_url': fields.String(required=False, allow_none=True, description='Media URL associated with the request'),
   'agency_id': fields.String(required=True, description='Agency ID'),
   'other_fields': fields.Raw(required=False, description='Additional fields including permit dates')
@@ -109,7 +109,7 @@ def retrieveData(bucket, tag):
     response = requests.get(url_dataset, verify=ca)
     response = response.json()['results']
     if (tag == 'Request'):
-      date_format = '%m/%d/%Y %H:%M'
+      date_format = '%Y-%m-%d %H:%M:%S'
       for item in response:
         item['requested_datetime'] = datetime.strptime(item['requested_datetime'], date_format)
         item['updated_datetime'] = datetime.strptime(item['updated_datetime'], date_format)
@@ -140,7 +140,7 @@ class ServiceList(Resource):
     """
     try:
       retrieveData(service_list, 'Service')
-      filtered_services = service_list
+      filtered_services = service_list[0]
 
       # Filter by jurisdiction_id
       if request.args.get('jurisdiction_id'):
@@ -214,7 +214,7 @@ class ServiceRequest(Resource):
     """
     try:
       retrieveData(service_requests, 'Request')
-      filtered_requests = service_requests
+      filtered_requests = service_requests[0]
 
       # Basic string filters
       string_filters = [
@@ -231,14 +231,14 @@ class ServiceRequest(Resource):
       # Coordinate filters
       if request.args.get('lat'):
         try:
-          lat = float(request.args.get('lat'))
+          lat = str(request.args.get('lat'))
           filtered_requests = [req for req in filtered_requests if req['lat'] == lat]
         except ValueError:
           return {'message': 'Invalid latitude format.'}, 400
 
       if request.args.get('long'):
         try:
-          long = float(request.args.get('long'))
+          long = str(request.args.get('long'))
           filtered_requests = [req for req in filtered_requests if req['long'] == long]
         except ValueError:
           return {'message': 'Invalid longitude format.'}, 400
@@ -309,7 +309,7 @@ class ServiceDefinition(Resource):
     """
     try:
       retrieveData(service_definitions, 'Definition')
-      filtered_definitions = service_definitions
+      filtered_definitions = service_definitions[0]
 
       # Filter by service_code
       if request.args.get('service_code'):
