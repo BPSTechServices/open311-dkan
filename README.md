@@ -5,6 +5,7 @@
 - [Datasets Update](#datasets-update)
 
 ## Installation
+We are using a virtual machine instance with Debian 12 (Bookworm) as the operating system. The instance is configured with 8 vCPUs and 32 GB of memory (RAM).
 
 ### Environment (Not minimum requirement; only my local setup)
 - <a href="https://getcomposer.org/doc/00-intro.md#installation-linux-unix-osx" target="_blank">Installing Composer</a>
@@ -16,7 +17,6 @@ PHP: 8.3.11
 Apache: 2.4.59
 Node: 22.8.0
 ```
-
 ### Build DKAN BACKEND
 
 ```
@@ -48,13 +48,7 @@ sudo usermod -aG docker $USER
 newgrp docker
 sudo chown -R $USER:$USER /home/get-dkan
 ```
-`vi .ddev/config.yaml`
-and add:
-```
-router_http_port: "8080"
-router_https_port: "8443"
-bind_all_interfaces: true
-```
+
 
 ```
 // get a local url
@@ -62,6 +56,14 @@ ddev drush uli
 // get a external url
 ddev drush uli | sed "s|https://get-dkan.ddev.site|http://$(curl -s ifconfig.me):8080|g"
 ddev launch
+```
+### Enable visualization feature
+```
+composer require 'drupal/dkan_chart:1.0.x-dev@dev' --ignore-platform-req=ext-zip
+ddev drush cache-rebuild
+ddev drush en  clipboardjs  -y
+ddev drush en dkan_chart -y
+ddev drush en dkan_tables -y
 ```
 
 ### Flask Proxy
