@@ -65,18 +65,17 @@ ddev launch
 ```
 
 ### Flask Proxy
-```
 Requirement
+```
 Python Version 3.7 or later.
 ```
-```
 Environment Setup
+```
 pip install Flask
 pip install flask-restx
 ```
-
-```
 Proxy Execution
+```
 docker exec -it ddev-get-dkan-web /bin/bash
 setsid /venv/bin/python proxy.py &
 ```
