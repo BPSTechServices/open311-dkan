@@ -79,7 +79,7 @@ git pull
 ddev dkan-frontend-build
 ```
 
-## Datasets Upload
+## (Optional) Datasets Upload
 ```
 ddev drush queue:list
 ddev drush queue:run localize_import
@@ -87,7 +87,7 @@ ddev drush queue:run datastore_import
 ddev drush queue:run post_import
 ```
 
-## Datasets Update
+## (Optional) Datasets Update
 ```
 ddev drush queue:list
 ddev drush queue:run resource_purger
