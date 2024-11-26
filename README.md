@@ -19,14 +19,14 @@ Apache: 2.4.59
 Node: 22.8.0
 ```
 
-### Build DKAN BACKEND
+### Build Project BACKEND
 ```
 ddev start
 ddev composer install
 ddev dkan-site-install
 ```
 
-### Build DKAN FRONTEND
+### Build Project FRONTEND
 ```
 ddev dkan-frontend-install
 ```
