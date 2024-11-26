@@ -15,7 +15,9 @@
         "drupal/core-composer-scaffold": "~10.2.0",
         "drupal/core-recommended": "~10.2.0",
         "drush/drush": "^12.4.3",
-        "getdkan/dkan": "^2.19.6"
+        "getdkan/dkan": "^2.19.6",
+        "drupal/clipboardjs": "^2.0",
+        "drupal/dkan_chart": "1.0.x-dev@dev"
     },
     "require-dev": {
         "colinodell/psr-testlogger": "^1.2",
@@ -46,7 +48,8 @@
             "drupal/core-composer-scaffold": true,
             "oomphinc/composer-installers-extender": true,
             "php-http/discovery": true,
-            "phpstan/extension-installer": true
+            "phpstan/extension-installer": true,
+            "tbachert/spi": false
         },
         "sort-packages": true
     },

@@ -20,7 +20,7 @@ const Open311 = () => (
           {/*  </Announcement>*/}
           {/*</div>*/}
           <div className="col-md-9 col-sm-12">
-            <SwaggerUI url="https://127.0.0.1:5000/swagger.json"/>
+            <SwaggerUI url="https://wren-liberal-optionally.ngrok-free.app/swagger.json"/>
           </div>
         </div>
         <h2>App version:</h2>

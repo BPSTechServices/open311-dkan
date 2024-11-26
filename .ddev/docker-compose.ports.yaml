@@ -1,8 +1,18 @@
 services:
   web:
     ports:
+      - host_ip: 0.0.0.0
+        mode: ingress
+        protocol: tcp
+        target: 80
+        published: 6080
+      - host_ip: 0.0.0.0
+        mode: ingress
+        protocol: tcp
+        target: 443
+        published: 6443
       - target: 5000
         published: 5000
         protocol: tcp
         mode: ingress
-        host_ip: 127.0.0.1
+        host_ip: 0.0.0.0

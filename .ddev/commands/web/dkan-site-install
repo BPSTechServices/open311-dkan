@@ -27,6 +27,10 @@ drush config-set node.settings use_admin_theme true -y
 drush config-set system.performance css.preprocess 0 -y
 drush config-set system.performance js.preprocess 0 -y
 
+drush en clipboardjs -y
+drush en dkan_chart -y
+drush en dkan_tables -y
+
 drush cr
 
 echo "Site install complete."
