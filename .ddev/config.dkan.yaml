@@ -29,4 +29,4 @@ hooks:
     - exec: |
         sudo python3 -m venv /venv
     - exec: |
-        sudo /venv/bin/pip install flask flask_restx flask_cors requests
+        sudo /venv/bin/pip install flask flask_restx flask_cors flask_limiter requests
