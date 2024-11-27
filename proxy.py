@@ -6,7 +6,7 @@ import requests
 
 app = Flask(__name__)
 
-# CORS(app, origins=["https://get-dkan.ddev.site"], supports_credentials=True)
+CORS(app, origins=["https://get-dkan.ddev.site", "https://wren-liberal-optionally.ngrok-free.app"], supports_credentials=True)
 
 # Swagger UI Config
 swagger_ui_config = {
@@ -85,13 +85,6 @@ error_model = api.model('Error', {
   'message': fields.String(required=True, description='Error message')
 })
 
-service_list = [
-]
-service_requests = [
-]
-service_definitions = [
-]
-
 def retrieveData(bucket, tag):
   url_identifier = "https://get-dkan.ddev.site/api/1/search"
   ca = "/mnt/ddev-global-cache/mkcert/rootCA.pem"
@@ -104,16 +97,26 @@ def retrieveData(bucket, tag):
   # Iterate over each dataset in the "results"
   for dataset_key, dataset_value in data_identifiers.get("results").items():
     ref_distributions = dataset_value.get("%Ref:distribution")
-    resource_id = ref_distributions[0]['identifier']
-    url_dataset = f"https://get-dkan.ddev.site/api/1/datastore/query/{resource_id}"
-    response = requests.get(url_dataset, verify=ca)
-    response = response.json()['results']
-    if (tag == 'Request'):
-      date_format = '%Y-%m-%d %H:%M:%S'
-      for item in response:
-        item['requested_datetime'] = datetime.strptime(item['requested_datetime'], date_format)
-        item['updated_datetime'] = datetime.strptime(item['updated_datetime'], date_format)
-    bucket.append(response)
+    for distribution in ref_distributions:
+      loadAll = False
+      resource_id = distribution['identifier']
+      offset = 0
+      while not loadAll:
+        url_dataset = f"https://get-dkan.ddev.site/api/1/datastore/query/{resource_id}?offset={offset}"
+        json_response = requests.get(url_dataset, verify=ca).json()
+        limit = json_response['count']
+        entries = json_response['results']
+        if (tag == 'Request'):
+          date_format = '%Y-%m-%d %H:%M:%S'
+          for entry in entries:
+            entry['requested_datetime'] = datetime.strptime(entry['requested_datetime'], date_format)
+            entry['updated_datetime'] = datetime.strptime(entry['updated_datetime'], date_format)
+            bucket.append(entry)
+        else:
+          for entry in entries:
+            bucket.append(entry)
+        offset += len(entries)
+        loadAll = offset == limit
 
 @ns.route('/service_list')
 class ServiceList(Resource):
@@ -139,8 +142,9 @@ class ServiceList(Resource):
     All text filters are case-insensitive. Keywords filter supports comma-separated values for multiple keyword search.
     """
     try:
+      service_list = []
       retrieveData(service_list, 'Service')
-      filtered_services = service_list[0]
+      filtered_services = service_list
 
       # Filter by jurisdiction_id
       if request.args.get('jurisdiction_id'):
@@ -213,8 +217,9 @@ class ServiceRequest(Resource):
     This endpoint allows you to retrieve a list of service requests. You can apply various filters to narrow down the results.
     """
     try:
+      service_requests = []
       retrieveData(service_requests, 'Request')
-      filtered_requests = service_requests[0]
+      filtered_requests = service_requests
 
       # Basic string filters
       string_filters = [
@@ -308,8 +313,9 @@ class ServiceDefinition(Resource):
     All text filters are case-insensitive. Boolean filters accept TRUE/FALSE values.
     """
     try:
+      service_definitions = []
       retrieveData(service_definitions, 'Definition')
-      filtered_definitions = service_definitions[0]
+      filtered_definitions = service_definitions
 
       # Filter by service_code
       if request.args.get('service_code'):
@@ -317,8 +323,8 @@ class ServiceDefinition(Resource):
 
       # Filter by variable
       if request.args.get('variable'):
-        variable_value = request.args.get('variable').upper() == 'TRUE'
-        filtered_definitions = [definition for definition in filtered_definitions if definition['variable'] == variable_value]
+        variable_value = request.args.get('variable').upper()
+        filtered_definitions = [definition for definition in filtered_definitions if definition['variable'].upper() == variable_value]
 
       # Filter by code
       if request.args.get('code'):
@@ -330,9 +336,9 @@ class ServiceDefinition(Resource):
 
       # Filter by required
       if request.args.get('required'):
-        required_value = request.args.get('required').upper() == 'TRUE'
+        required_value = request.args.get('required').upper()
         filtered_definitions = [definition for definition in filtered_definitions
-                                if definition['required'] == required_value]
+                                if definition['required'].upper() == required_value]
 
       # Filter by datatype_description
       if request.args.get('datatype_description'):
@@ -341,7 +347,7 @@ class ServiceDefinition(Resource):
 
       # Filter by order
       if request.args.get('order'):
-        order_value = int(request.args.get('order'))
+        order_value = request.args.get('order')
         filtered_definitions = [definition for definition in filtered_definitions if definition['order'] == order_value]
 
       # Filter by description
