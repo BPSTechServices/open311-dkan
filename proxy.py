@@ -3,8 +3,22 @@ from flask_restx import Api, Resource, fields
 from datetime import datetime
 from flask_cors import CORS
 import requests
+from flask_limiter import Limiter
+from flask_limiter.util import get_remote_address
 
 app = Flask(__name__)
+limiter = Limiter(
+    get_remote_address,
+    app=app,
+    default_limits=["10 per minute"],
+    storage_uri="memory://"
+)
+@app.errorhandler(429)
+def ratelimit_handler(e):
+    return {
+        "error": "Too Many Requests",
+        "message": "Rate limit exceeded (10 requests per minute)"
+    }, 429
 
 CORS(app, origins=["https://get-dkan.ddev.site", "https://wren-liberal-optionally.ngrok-free.app"], supports_credentials=True)
 
@@ -125,6 +139,7 @@ class ServiceList(Resource):
   @ns.response(200, 'Success')
   @ns.response(400, 'Bad Request', error_model)
   @ns.response(404, 'No Services Found', error_model)
+  @ns.response(429, 'Too many requests', error_model)
   @ns.response(500, 'Internal Server Error', error_model)
   @ns.param('jurisdiction_id', 'Filter by jurisdiction ID')
   @ns.param('service_code', 'Filter by service code')
@@ -195,6 +210,7 @@ class ServiceRequest(Resource):
   @ns.response(200, 'Success')
   @ns.response(400, 'Bad Request', error_model)
   @ns.response(404, 'No Service Requests Found', error_model)
+  @ns.response(429, 'Too many requests', error_model)
   @ns.response(500, 'Internal Server Error', error_model)
   @ns.param('service_request_id', 'Filter by service request ID')
   @ns.param('status', 'Filter by status')
@@ -296,6 +312,7 @@ class ServiceDefinition(Resource):
   @ns.response(200, 'Success')
   @ns.response(400, 'Bad Request', error_model)
   @ns.response(404, 'No Definitions Found', error_model)
+  @ns.response(429, 'Too many requests', error_model)
   @ns.response(500, 'Internal Server Error', error_model)
   @ns.param('service_code', 'Filter by service code (case-insensitive)')
   @ns.param('variable', 'Filter by variable status (TRUE/FALSE)')
